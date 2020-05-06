@@ -127,13 +127,15 @@ const Component = (params) =>{
   const p1 = document.createElement('p');
   const p2 = document.createElement('p');
   const p3 = document.createElement('p');
-  const theSpan = document.createElement('span');
+  const theOpenBtn = document.createElement("span");
+  const theCloseBtn = document.createElement("span");
   const open = "\u25bc";
   const close = "\u25b2";
 
   panel.classList.add('article');
   theDate.classList.add('date');
-  theSpan.classList.add('expandButton');
+  theOpenBtn.classList = "expandButton";
+  theCloseBtn.classList= "expandButton hideButton";
 
   header.textContent = params.title;
   theDate.textContent = params.date;
@@ -141,13 +143,22 @@ const Component = (params) =>{
   p1.textContent = params.firstParagraph;
   p2.textContent = params.secondParagraph;
   p3.textContent = params.thirdParagraph;
-  theSpan.textContent = open;
+  theOpenBtn.textContent = open;
+  theCloseBtn.textContent = close;
 
-  theSpan.addEventListener('click', (event)=>{
-    panel.classList.toggle('article-open');
-  })  
+  panel.append(header, theDate, p1, p2, p3, theOpenBtn, theCloseBtn);
 
-  panel.append(header, theDate, p1, p2, p3, theSpan);
+  theOpenBtn.addEventListener("click", ()=>{
+    panel.classList.toggle("article-open");
+    theOpenBtn.classList.toggle("hideButton");
+    theCloseBtn.classList.toggle("hideButton");
+  });
+
+  theCloseBtn.addEventListener("click", ()=>{
+    panel.classList.toggle("article-open");
+    theOpenBtn.classList.toggle("hideButton");
+    theCloseBtn.classList.toggle("hideButton");
+  });
   return panel
 }
 
