@@ -85,6 +85,13 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+  title: 'Nicks Mandatory Involvment',
+  date: 'May 6th, 2020',
+  firstParagraph: "First paragraph",
+  secondParagraph: 'Second paragraph',
+  thirdParagraph: 'Third paragraph'
   }
 ];
 
@@ -102,9 +109,10 @@ const data = [
   Hint: You will need to use createElement more than once here!
 
   Your function should take either an object as it's one argument, or 5 separate arguments mapping to each piece of the data object above.
-
   Step 2: Add an event listener to the expandButton span. This event listener should toggle the class 'article-open' on the 'article' div.
+*/
 
+/*
   Step 3: return the entire component.
 
   Step 4: Map over the data, creating a component for each oject and add each component to the DOM as children of the 'articles' div.
@@ -112,3 +120,50 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+const Component = (params) =>{
+  const panel = document.createElement('div');
+  const header = document.createElement('h2');
+  const theDate = document.createElement('p');
+  const p1 = document.createElement('p');
+  const p2 = document.createElement('p');
+  const p3 = document.createElement('p');
+  const theOpenBtn = document.createElement("span");
+  const theCloseBtn = document.createElement("span");
+  const open = "\u25bc";
+  const close = "\u25b2";
+
+  panel.classList.add('article');
+  theDate.classList.add('date');
+  theOpenBtn.classList = "expandButton";
+  theCloseBtn.classList= "expandButton hideButton";
+
+  header.textContent = params.title;
+  theDate.textContent = params.date;
+
+  p1.textContent = params.firstParagraph;
+  p2.textContent = params.secondParagraph;
+  p3.textContent = params.thirdParagraph;
+  theOpenBtn.textContent = open;
+  theCloseBtn.textContent = close;
+
+  panel.append(header, theDate, p1, p2, p3, theOpenBtn, theCloseBtn);
+
+  theOpenBtn.addEventListener("click", ()=>{
+    panel.classList.toggle("article-open");
+    theOpenBtn.classList.toggle("hideButton");
+    theCloseBtn.classList.toggle("hideButton");
+  });
+
+  theCloseBtn.addEventListener("click", ()=>{
+    panel.classList.toggle("article-open");
+    theOpenBtn.classList.toggle("hideButton");
+    theCloseBtn.classList.toggle("hideButton");
+  });
+  return panel
+}
+
+
+const articlesDiv = document.querySelector('.articles');
+const theArticles = data.map(param =>{
+  articlesDiv.appendChild(Component(param));
+});
